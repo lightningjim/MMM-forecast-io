@@ -18,6 +18,7 @@ Module.register("MMM-forecast-io", {
     longitude: null,
     showSummary: true,
     showForecast: true,
+    maxDaysForecast: 7, // maximum number of days to show in forecast
     showPrecipitationGraph: true,
     precipitationGraphWidth: 400,
     showWind: true,
@@ -164,6 +165,14 @@ Module.register("MMM-forecast-io", {
 
 // ====== wind 
     if (this.config.showWind) {
+      // Determine Wind Dir
+      dirs = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+      tempDir = Math.round((this.weatherData.currently.windBearing + 11.25) / 22.5);
+      windDir = dirs[tempDir % 16];
+      console.log("MMM-forecast-io: Wind Dir Deg: " + this.weatherData.currently.windBearing);
+      console.log("MMM-forecast-io: tempDir = " + tempDir);
+      console.log("MMM-forecast-io: windDir = " + windDir);
+
       var padding = document.createElement("span");
       padding.className = "dim";
       padding.innerHTML = " &nbsp &nbsp ";
@@ -175,7 +184,7 @@ Module.register("MMM-forecast-io", {
 
       var wind = document.createElement("span");
       wind.className = "dim";
-      wind.innerHTML = " " + Math.round(this.weatherData.currently.windSpeed) + " ";
+      wind.innerHTML = " " + Math.round(this.weatherData.currently.windSpeed) + " " + windDir + " ";
       large.appendChild(wind);
     }
 
@@ -433,7 +442,7 @@ Module.register("MMM-forecast-io", {
   },
 
   renderWeatherForecast: function () {
-    var numDays =  7;
+    var numDays = this.config.maxDaysForecast;
     var i;
 
     var filteredDays =
