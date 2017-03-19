@@ -1,3 +1,5 @@
+# Forking in Progress
+This will eventualy have some differences; bulk of which is for Dew Point display and also for resizing for the Raspberry Pi 7" touch screen
 # MMM-Forecast-IO
 This an extension for [MagicMirror](https://github.com/MichMich/MagicMirror) that adds localized weather using the [Dark Sky API](https://darksky.net/dev/) (originally Forecast.io) -- the same service that powers the [Dark Sky App](https://darksky.net/app/).
 
