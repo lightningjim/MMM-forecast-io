@@ -103,6 +103,7 @@ Module.register("MMM-forecast-io", {
     this.loaded = true;
     this.weatherData = data;
     this.temp = this.roundTemp(this.weatherData.currently.temperature);
+    this.dewpoint = this.roundTemp(this.weatherData.currently.dewPoint);
     this.updateDom(this.config.animationSpeed);
     this.scheduleUpdate();
   },
@@ -162,6 +163,11 @@ Module.register("MMM-forecast-io", {
     temperature.className = "bright";
     temperature.innerHTML = " " + this.temp + "&deg;";
     large.appendChild(temperature);
+
+    var humidity = document.createElement("span");
+    humidity.className = "bright humidity";
+    humidity.innerHTML = " " + this.dewpoint + "&deg;"
+    large.appendChild(humidity);
 
 // ====== wind 
     if (this.config.showWind) {

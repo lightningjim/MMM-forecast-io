@@ -1,6 +1,10 @@
 .MMM-forecast-io {
 }
 
+.MMM-forecast-io .humidity {
+  color: green;
+}
+
 .MMM-forecast-io .big-icon {
   font-size: 75%;
   line-height: 65px;
