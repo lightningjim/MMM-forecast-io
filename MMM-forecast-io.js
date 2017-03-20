@@ -59,7 +59,7 @@ Module.register("MMM-forecast-io", {
   },
 
   getStyles: function () {
-    return ["weather-icons.css", "MMM-forecast-io.css"];
+    return ["weather-icons.css", "weather-icons-wind.css", "MMM-forecast-io.css"];
   },
 
   shouldLookupGeolocation: function () {
@@ -175,14 +175,14 @@ Module.register("MMM-forecast-io", {
       dirs = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
       tempDir = Math.round((this.weatherData.currently.windBearing + 11.25) / 22.5);
       windDir = dirs[tempDir % 16];
-      console.log("MMM-forecast-io: Wind Dir Deg: " + this.weatherData.currently.windBearing);
-      console.log("MMM-forecast-io: tempDir = " + tempDir);
-      console.log("MMM-forecast-io: windDir = " + windDir);
+      //console.log("MMM-forecast-io: Wind Dir Deg: " + this.weatherData.currently.windBearing);
+      //console.log("MMM-forecast-io: tempDir = " + tempDir);
+      //console.log("MMM-forecast-io: windDir = " + windDir);
 
-      var padding = document.createElement("span");
+      /*var padding = document.createElement("span");
       padding.className = "dim";
       padding.innerHTML = " &nbsp &nbsp ";
-      large.appendChild(padding);
+      large.appendChild(padding);*/
 
       var windicon = document.createElement("span");
       windicon.className = 'big-icon wi wi-strong-wind xdimmed';
@@ -190,8 +190,17 @@ Module.register("MMM-forecast-io", {
 
       var wind = document.createElement("span");
       wind.className = "dim";
-      wind.innerHTML = " " + Math.round(this.weatherData.currently.windSpeed) + " " + windDir + " ";
+      wind.innerHTML = " " + Math.round(this.weatherData.currently.windSpeed) + " ";
       large.appendChild(wind);
+
+      var winddiricon = document.createElement("span");
+      winddiricon.className = "dim wi wi-wind wi-from-" + windDir.toLowerCase();
+      large.appendChild(winddiricon);
+
+      var windDirection = document.createElement("span");
+      windDirection.className = "dim";
+      windDirection.innerHTML = " " + windDir + " ";
+      large.appendChild(windDirection);
     }
 
 //========== sunrise/sunset
@@ -211,7 +220,7 @@ Module.register("MMM-forecast-io", {
       }
 
       var sunTime = document.createElement("div");
-      sunTime.className = "small dimmed summary";
+      sunTime.className = "medium dimmed summary";
       sunTime.innerHTML = sunString;
       large.appendChild(sunTime);
     }
@@ -221,7 +230,7 @@ Module.register("MMM-forecast-io", {
     if (this.config.showSummary) {
       var summaryText = minutely ? minutely.summary : hourly.summary;
       var summary = document.createElement("div");
-      summary.className = "small dimmed summary";
+      summary.className = "medium dimmed summary";
       summary.innerHTML = summaryText;
       wrapper.appendChild(summary);
     }
